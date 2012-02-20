@@ -54,7 +54,8 @@ module RailsAdmin
       #  end
       #end
       display "Now you'll need an initializer..."
-      @model_name = 'user'
+      model_name = 'user'
+      @model_name = model_name
       unless initializer
         template "initializer.erb", "config/initializers/rails_admin.rb"
       else
