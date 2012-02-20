@@ -21,38 +21,38 @@ module RailsAdmin
       initializer = (File.open(Rails.root.join("config/initializers/rails_admin.rb")) rescue nil).try :read
 
       display "Hello, RailsAdmin installer will help you sets things up!", :blue
-      display "I need to work with Devise, let's look at a few things first:"
-      display "Checking for a current installation of devise..."
-      unless defined?(Devise)
-        display "Adding devise gem to your Gemfile:"
-        append_file "Gemfile", "\n", :force => true
-        gem 'devise'
-      else
-        display "Found it!"
-      end
-      unless File.exists?(Rails.root.join("config/initializers/devise.rb"))
-        display "Looks like you don't have devise installed! We'll install it for you:"
-        generate "devise:install"
-      else
-        display "Looks like you've already installed it, good!"
-      end
-
-      unless routes.index("devise_for")
-        model_name = ask_for("What would you like the user model to be called?", "user", _model_name)
-        display "Now setting up devise with user model name '#{model_name}':"
-        generate "devise", model_name
-      else
-        display "And you already set it up, good! We just need to know about your user model name..."
-        guess = routes.match(/devise_for :(\w+)/)[1].try(:singularize)
-        display("We found '#{guess}' (should be one of 'user', 'admin', etc.)")
-        model_name = ask_for("Correct Devise model name if needed.", guess, _model_name)
-        unless guess == model_name
-          display "Now setting up devise with user model name '#{model_name}':"
-          generate "devise", model_name
-        else
-          display "Ok, Devise looks already set up with user model name '#{model_name}':"
-        end
-      end
+      #display "I need to work with Devise, let's look at a few things first:"
+      #display "Checking for a current installation of devise..."
+      #unless defined?(Devise)
+      #  display "Adding devise gem to your Gemfile:"
+      #  append_file "Gemfile", "\n", :force => true
+      #  gem 'devise'
+      #else
+      #  display "Found it!"
+      #end
+      #unless File.exists?(Rails.root.join("config/initializers/devise.rb"))
+      #  display "Looks like you don't have devise installed! We'll install it for you:"
+      #  generate "devise:install"
+      #else
+      #  display "Looks like you've already installed it, good!"
+      #end
+      #
+      #unless routes.index("devise_for")
+      #  model_name = ask_for("What would you like the user model to be called?", "user", _model_name)
+      #  display "Now setting up devise with user model name '#{model_name}':"
+      #  generate "devise", model_name
+      #else
+      #  display "And you already set it up, good! We just need to know about your user model name..."
+      #  guess = routes.match(/devise_for :(\w+)/)[1].try(:singularize)
+      #  display("We found '#{guess}' (should be one of 'user', 'admin', etc.)")
+      #  model_name = ask_for("Correct Devise model name if needed.", guess, _model_name)
+      #  unless guess == model_name
+      #    display "Now setting up devise with user model name '#{model_name}':"
+      #    generate "devise", model_name
+      #  else
+      #    display "Ok, Devise looks already set up with user model name '#{model_name}':"
+      #  end
+      #end
       display "Now you'll need an initializer..."
       @model_name = model_name
       unless initializer
